@@ -3,6 +3,7 @@ package com.example.servidorappbackend.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,7 +30,8 @@ public class ServidorController {
 	
 	@GetMapping("/{id}")
 	public Servidor buscarServidor(@PathVariable("id") String id){
-		return null;
+		Servidor servidor = servidorService.findById(id).get();
+		return servidor;
 	}
 	
 	@PostMapping
@@ -37,13 +39,15 @@ public class ServidorController {
 		return servidorService.salvar(servidor);
 	}
 	
-	@PutMapping
-	public List<Servidor> alterarServidor(@PathVariable("id") String id, @RequestBody Servidor servidor){
+	@PutMapping("/{id}")
+	public ResponseEntity<Servidor> alterarServidor(@PathVariable("id") String id, @RequestBody Servidor servidor){
+		servidorService.alterar(id, servidor);
 		return null;
 	}
 	
 	@DeleteMapping
-	public List<Servidor> deletarServidorById(@PathVariable("id") String id){
+	public ResponseEntity<Servidor> deletarServidorById(@PathVariable("id") String id){
+		servidorService.deletar(id);
 		return null;
 	}
 	
