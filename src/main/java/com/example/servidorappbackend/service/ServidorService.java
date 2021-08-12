@@ -15,25 +15,29 @@ public class ServidorService {
 	@Autowired
 	private ServidorRepository sevidoRepository;
 	
-	public List<Servidor> listarTodos(){
+	public List<Servidor> listarTodos() throws Exception {
 		return sevidoRepository.findAll();
 	}
 	
-	public Servidor salvar(Servidor servidor){
+	public Servidor salvar(Servidor servidor) throws Exception {
 		return sevidoRepository.save(servidor);
 	}
 	
-	public Optional<Servidor> findById(String id){
+	public Optional<Servidor> findById(String id) throws Exception {
 		return sevidoRepository.findById(id);
 	}
 	
-	public void deletar(String id) {
+	public void deletar(String id) throws Exception  {
 		sevidoRepository.deleteById(id);
 	}
 	
-	public void alterar(String id, Servidor servidor) {
+	public void deletarServidores(List<String> id) throws Exception {
+		sevidoRepository.deleteAllByIdInBatch(id);
+	}
+	
+	public Servidor alterar(String id, Servidor servidor) throws Exception {
 		servidor.setId(id);
-		sevidoRepository.save(servidor);
+		return sevidoRepository.save(servidor);
 	}
 	
 }
